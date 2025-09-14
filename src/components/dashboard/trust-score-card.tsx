@@ -20,7 +20,7 @@ export function TrustScoreCard() {
         <CardTitle>Trust Score</CardTitle>
         <CardDescription>Based on your on-chain activity and history.</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col items-center justify-center p-6">
+      <CardContent className="flex-1 flex flex-col items-center justify-center p-6 relative">
         <ChartContainer config={chartConfig} className="mx-auto aspect-square h-full max-h-[160px]">
           <RadialBarChart
             data={chartData}
@@ -33,7 +33,7 @@ export function TrustScoreCard() {
             <RadialBar dataKey="value" background={{ fill: 'hsl(var(--muted))' }} cornerRadius={6} />
           </RadialBarChart>
         </ChartContainer>
-        <div className="relative -mt-[110px] text-center">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
             <p className="text-5xl font-bold tracking-tight text-foreground">{score}</p>
             <p className="text-sm text-muted-foreground">Excellent</p>
         </div>
