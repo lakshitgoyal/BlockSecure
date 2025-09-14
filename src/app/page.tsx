@@ -1,54 +1,74 @@
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
-import { TrustScoreCard } from '@/components/dashboard/trust-score-card';
-import { LoansCard } from '@/components/dashboard/loans-card';
-import { TransactionHistory } from '@/components/dashboard/transaction-history';
-import { CreateLoanOffer } from '@/components/dashboard/create-loan-offer';
-import { LoanOffers } from '@/components/dashboard/loan-offers';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Logo } from '@/components/icons/logo';
+import Image from 'next/image';
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <DashboardLayout>
-      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-        <TrustScoreCard />
-        <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>Total Lent</CardDescription>
-            <CardTitle className="text-4xl">$12,405</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-xs text-muted-foreground">+15% from last month</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>Total Borrowed</CardDescription>
-            <CardTitle className="text-4xl">$5,231</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-xs text-muted-foreground">+10% from last month</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>Active Loans</CardDescription>
-            <CardTitle className="text-4xl">12</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-xs text-muted-foreground">+3 since last month</div>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-        <div className="grid auto-rows-max items-start gap-4 md:gap-8 xl:col-span-2">
-          <TransactionHistory />
-          <LoansCard />
-        </div>
-        <div className="grid auto-rows-max items-start gap-4 md:gap-8">
-          <CreateLoanOffer />
-          <LoanOffers />
-        </div>
-      </div>
-    </DashboardLayout>
+    <div className="flex flex-col min-h-screen">
+      <header className="px-4 lg:px-6 h-14 flex items-center">
+        <Link href="#" className="flex items-center justify-center" prefetch={false}>
+          <Logo />
+          <span className="sr-only">YellowEye</span>
+        </Link>
+        <nav className="ml-auto flex gap-4 sm:gap-6">
+          <Link href="/dashboard" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
+            Dashboard
+          </Link>
+          <Link href="/sign-in" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
+            Sign In
+          </Link>
+          <Button asChild>
+            <Link href="/sign-up" prefetch={false}>
+              Sign Up
+            </Link>
+          </Button>
+        </nav>
+      </header>
+      <main className="flex-1">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+              <div className="flex flex-col justify-center space-y-4">
+                <div className="space-y-2">
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                    AI-Powered DeFi Micro-Finance & Fraud Detection
+                  </h1>
+                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                    YellowEye leverages cutting-edge AI to provide trust scores, assess transaction risks, and offer a secure micro-lending platform.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                  <Button asChild size="lg">
+                    <Link href="/dashboard" prefetch={false}>
+                      Get Started
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+              <Image
+                src="https://picsum.photos/seed/finance-hero/600/400"
+                width="600"
+                height="400"
+                alt="Hero"
+                data-ai-hint="finance technology abstract"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
+              />
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
+        <p className="text-xs text-muted-foreground">&copy; 2024 YellowEye. All rights reserved.</p>
+        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+          <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
+            Terms of Service
+          </Link>
+          <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
+            Privacy
+          </Link>
+        </nav>
+      </footer>
+    </div>
   );
 }
