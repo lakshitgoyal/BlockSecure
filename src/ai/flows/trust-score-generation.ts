@@ -28,13 +28,17 @@ export type TrustScoreInput = z.infer<typeof TrustScoreInputSchema>;
 const TrustScoreOutputSchema = z.object({
   trustScore: z
     .number()
+    .min(0)
+    .max(100)
     .describe(
-      'A score between 0 and 1 representing the trustworthiness of the user.'
+      'A score between 0 and 100 representing the trustworthiness of the user.'
     ),
   riskScore: z
     .number()
+    .min(0)
+    .max(100)
     .describe(
-      'A score between 0 and 1 representing the risk associated with the user.'
+      'A score between 0 and 100 representing the risk associated with the user.'
     ),
   rationale: z
     .string()
@@ -56,20 +60,16 @@ const prompt = ai.definePrompt({
 
   Based on the provided information, generate a trust score and a risk score for the user.
 
-  The trust score should reflect the user's reputation within the YellowEye ecosystem, considering factors like transaction history, wallet age, interaction with fraudulent addresses, and on-chain behavior.
+  The trust score should be an integer between 0 and 100 reflecting the user's reputation within the YellowEye ecosystem, considering factors like transaction history, wallet age, interaction with fraudulent addresses, and on-chain behavior.
 
-  The risk score should indicate the potential risk associated with lending to this user.
+  The risk score should be an integer between 0 and 100 indicating the potential risk associated with lending to this user.
 
   Provide a brief rationale for the assigned scores.
 
   Transaction History: {{{transactionHistory}}}
   Wallet Age: {{{walletAge}}} days
   Interaction with Fraudulent Addresses: {{{interactionWithFraudulentAddresses}}}
-  On-Chain Behavior: {{{onChainBehavior}}}
-
-  Trust Score (0-1): // Provide the trust score here
-  Risk Score (0-1): // Provide the risk score here
-  Rationale: // Explain the reasoning behind the scores here`,
+  On-Chain Behavior: {{{onChainBehavior}}}`,
 });
 
 const generateTrustScoreFlow = ai.defineFlow(

@@ -19,19 +19,39 @@ import { Button } from '@/components/ui/button';
 import { transactions, Transaction } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { assessTransactionRisk, TransactionRiskAssessmentInput } from '@/ai/flows/transaction-risk-assessment';
-import { useState } from 'react';
+import { generateTrustScore, TrustScoreInput } from '@/ai/flows/trust-score-generation';
+import { useState, useEffect } from 'react';
 import { AlertTriangle, ArrowUpRight, LoaderCircle } from 'lucide-react';
 
 export function TransactionHistory() {
   const { toast } = useToast();
   const [assessing, setAssessing] = useState<string | null>(null);
+  const [userTrustScore, setUserTrustScore] = useState<number>(0);
+
+  useEffect(() => {
+    const fetchScore = async () => {
+      try {
+        const input: TrustScoreInput = {
+          transactionHistory: 'Completed 5 loans, 2 borrowings. All on time.',
+          walletAge: 365,
+          interactionWithFraudulentAddresses: false,
+          onChainBehavior: 'Regular token swaps, provides liquidity.',
+        };
+        const result = await generateTrustScore(input);
+        setUserTrustScore(result.trustScore);
+      } catch (error) {
+        console.error('Error fetching trust score:', error);
+      }
+    };
+    fetchScore();
+  }, []);
 
   const handleAssessRisk = async (transaction: Transaction) => {
     setAssessing(transaction.id);
     try {
       const input: TransactionRiskAssessmentInput = {
         transactionData: JSON.stringify(transaction),
-        userTrustScore: 82, // Example score
+        userTrustScore: userTrustScore,
       };
 
       const result = await assessTransactionRisk(input);

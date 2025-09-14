@@ -14,8 +14,8 @@ import {
   HandCoins,
   ArrowRightLeft,
   Settings,
-  BookUser,
-  BadgePercent,
+  LifeBuoy,
+  Percent,
 } from 'lucide-react';
 
 export function DashboardSidebar() {
@@ -37,7 +37,7 @@ export function DashboardSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href="#">
-                <BadgePercent />
+                <Percent />
                 Lend
               </Link>
             </SidebarMenuButton>
@@ -65,7 +65,7 @@ export function DashboardSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href="#">
-                <BookUser />
+                <LifeBuoy />
                 Support
               </Link>
             </SidebarMenuButton>
