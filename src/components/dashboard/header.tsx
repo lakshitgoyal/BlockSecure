@@ -9,7 +9,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Wallet } from 'lucide-react';
 import { SidebarTrigger } from '../ui/sidebar';
-import { UserButton, auth } from '@clerk/nextjs';
+import { UserButton } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
 import Link from 'next/link';
 
 export function DashboardHeader() {
