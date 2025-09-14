@@ -34,7 +34,7 @@ export function TrustScoreCard() {
           </RadialBarChart>
         </ChartContainer>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-            <p className="text-5xl font-bold tracking-tight text-foreground">{score}</p>
+            <p className="text-4xl font-bold tracking-tight text-foreground">{score}</p>
             <p className="text-sm text-muted-foreground">Excellent</p>
         </div>
       </CardContent>
