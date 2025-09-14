@@ -53,7 +53,7 @@ export function CreateLoanOffer() {
               max={180}
               step={1}
               value={[period]}
-              onValueValueChange={value => setPeriod(value[0])}
+              onValueChange={value => setPeriod(value[0])}
             />
           </div>
         </form>
