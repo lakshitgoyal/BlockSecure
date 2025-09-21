@@ -1,23 +1,65 @@
 
 'use client';
 import { TrustScoreCard } from '@/components/dashboard/trust-score-card';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useUpi } from '@/context/upi-provider';
+import { useUser } from '@clerk/nextjs';
+import Image from 'next/image';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ProfilePage() {
   const { upiId, isConnected, openDialog, disconnectUpi } = useUpi();
+  const { user, isLoaded } = useUser();
   
   return (
         <div className="grid gap-8 md:grid-cols-3">
-            <div className="md:col-span-1">
+            <div className="md:col-span-1 grid gap-8 auto-rows-max">
+                <Card>
+                    <CardHeader className="items-center text-center">
+                        {isLoaded ? (
+                             <Image 
+                                src={user?.imageUrl ?? ''} 
+                                alt={user?.fullName ?? 'User avatar'} 
+                                width={80} 
+                                height={80} 
+                                className="rounded-full"
+                            />
+                        ) : (
+                            <Skeleton className="w-20 h-20 rounded-full" />
+                        )}
+                        <CardTitle>{isLoaded ? user?.fullName : <Skeleton className="h-6 w-32 mt-2" />}</CardTitle>
+                        <CardDescription>{isLoaded ? user?.primaryEmailAddress?.emailAddress : <Skeleton className="h-4 w-40 mt-1" />}</CardDescription>
+                    </CardHeader>
+                </Card>
                 <TrustScoreCard />
             </div>
-            <div className="md:col-span-2 grid gap-8">
+            <div className="md:col-span-2 grid gap-8 auto-rows-max">
+                <div className="grid gap-4 md:grid-cols-2">
+                    <Card>
+                        <CardHeader className="pb-2">
+                            <CardDescription>Total Lent</CardDescription>
+                            <CardTitle className="text-4xl">₹1,25,000</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-xs text-muted-foreground">+15% from last month</div>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="pb-2">
+                            <CardDescription>Total Borrowed</CardDescription>
+                            <CardTitle className="text-4xl">₹55,000</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-xs text-muted-foreground">+10% from last month</div>
+                        </CardContent>
+                    </Card>
+                </div>
+
                 <Card>
                     <CardHeader>
-                        <CardTitle>Profile Details</CardTitle>
-                        <CardDescription>Manage your profile and payment settings.</CardDescription>
+                        <CardTitle>Profile & Payment Settings</CardTitle>
+                        <CardDescription>Manage your personal and payment information.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                        <div>
