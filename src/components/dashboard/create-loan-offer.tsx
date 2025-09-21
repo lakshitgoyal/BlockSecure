@@ -10,13 +10,27 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
+import { useUpi } from '@/context/upi-provider';
+import { useToast } from '@/hooks/use-toast';
 
 export function CreateLoanOffer() {
   const [amount, setAmount] = useState(500);
   const [period, setPeriod] = useState(30);
+  const { isConnected, openDialog } = useUpi();
+  const { toast } = useToast();
+
+  const handleSubmit = () => {
+    if (!isConnected) {
+      openDialog();
+    } else {
+      toast({
+        title: 'Request Submitted',
+        description: `Your loan request for $${amount} has been submitted.`,
+      });
+    }
+  };
 
   return (
     <Card>
@@ -30,7 +44,7 @@ export function CreateLoanOffer() {
         <form className="space-y-6">
           <div className="grid gap-2">
             <div className="flex justify-between items-baseline">
-                <Label htmlFor="amount">Amount (USDC)</Label>
+                <Label htmlFor="amount">Amount (USD)</Label>
                 <span className="text-lg font-semibold">${amount}</span>
             </div>
             <Slider
@@ -59,7 +73,7 @@ export function CreateLoanOffer() {
         </form>
       </CardContent>
       <CardFooter>
-        <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">Submit Request</Button>
+        <Button onClick={handleSubmit} className="w-full bg-accent text-accent-foreground hover:bg-accent/90">Submit Request</Button>
       </CardFooter>
     </Card>
   );

@@ -1,3 +1,4 @@
+'use client';
 import {
   Card,
   CardContent,
@@ -6,9 +7,11 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { loanOffers } from '@/lib/data';
+import { loanOffers, LoanOffer } from '@/lib/data';
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+import { useUpi } from '@/context/upi-provider';
+import { useToast } from '@/hooks/use-toast';
 
 interface LoanOffersProps {
   hideViewAll?: boolean;
@@ -16,6 +19,20 @@ interface LoanOffersProps {
 }
 
 export function LoanOffers({ hideViewAll = false, viewAllHref = '#' }: LoanOffersProps) {
+    const { isConnected, openDialog } = useUpi();
+    const { toast } = useToast();
+
+    const handleLend = (offer: LoanOffer) => {
+        if (!isConnected) {
+            openDialog();
+        } else {
+            toast({
+                title: 'Loan Funded',
+                description: `You have successfully lent $${offer.amount}.`,
+            });
+        }
+    };
+
   return (
     <Card>
       <CardHeader className='flex flex-row items-start justify-between'>
@@ -47,7 +64,7 @@ export function LoanOffers({ hideViewAll = false, viewAllHref = '#' }: LoanOffer
                   {offer.repaymentPeriod} days | Trust Score: {offer.borrowerTrustScore}
                 </p>
               </div>
-              <Button size="sm">Lend</Button>
+              <Button size="sm" onClick={() => handleLend(offer)}>Lend</Button>
             </div>
           ))}
         </div>

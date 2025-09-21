@@ -1,18 +1,22 @@
+
 import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
 import { CreateLoanOffer } from '@/components/dashboard/create-loan-offer';
 import { LoansCard } from '@/components/dashboard/loans-card';
+import { UpiProvider } from '@/context/upi-provider';
 
 export default function BorrowPage() {
     return (
-        <DashboardLayout>
-            <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-                <div className="grid auto-rows-max items-start gap-4 md:gap-8 xl:col-span-2">
-                    <LoansCard hideViewAll />
+        <UpiProvider>
+            <DashboardLayout>
+                <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
+                    <div className="grid auto-rows-max items-start gap-4 md:gap-8 xl:col-span-2">
+                        <LoansCard hideViewAll />
+                    </div>
+                    <div className="grid auto-rows-max items-start gap-4 md:gap-8">
+                        <CreateLoanOffer />
+                    </div>
                 </div>
-                <div className="grid auto-rows-max items-start gap-4 md:gap-8">
-                    <CreateLoanOffer />
-                </div>
-            </div>
-        </DashboardLayout>
+            </DashboardLayout>
+        </UpiProvider>
     );
 }
