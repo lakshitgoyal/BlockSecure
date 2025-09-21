@@ -8,8 +8,14 @@ import {
 import { Button } from '@/components/ui/button';
 import { loanOffers } from '@/lib/data';
 import { ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 
-export function LoanOffers() {
+interface LoanOffersProps {
+  hideViewAll?: boolean;
+  viewAllHref?: string;
+}
+
+export function LoanOffers({ hideViewAll = false, viewAllHref = '#' }: LoanOffersProps) {
   return (
     <Card>
       <CardHeader className='flex flex-row items-start justify-between'>
@@ -17,12 +23,14 @@ export function LoanOffers() {
           <CardTitle>Available Loan Requests</CardTitle>
           <CardDescription>Opportunities to lend your assets.</CardDescription>
         </div>
-         <Button asChild size="sm" className="ml-auto gap-1">
-          <a href="#">
-            View All
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-        </Button>
+        {!hideViewAll && (
+          <Button asChild size="sm" className="ml-auto gap-1">
+            <Link href={viewAllHref}>
+              View All
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        )}
       </CardHeader>
       <CardContent>
         <div className="space-y-4">

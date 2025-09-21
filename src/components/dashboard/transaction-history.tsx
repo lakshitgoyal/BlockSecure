@@ -22,8 +22,14 @@ import { assessTransactionRisk, TransactionRiskAssessmentInput } from '@/ai/flow
 import { generateTrustScore, TrustScoreInput } from '@/ai/flows/trust-score-generation';
 import { useState, useEffect } from 'react';
 import { AlertTriangle, ArrowUpRight, LoaderCircle } from 'lucide-react';
+import Link from 'next/link';
 
-export function TransactionHistory() {
+interface TransactionHistoryProps {
+  hideViewAll?: boolean;
+  viewAllHref?: string;
+}
+
+export function TransactionHistory({ hideViewAll = false, viewAllHref = '#' }: TransactionHistoryProps) {
   const { toast } = useToast();
   const [assessing, setAssessing] = useState<string | null>(null);
   const [userTrustScore, setUserTrustScore] = useState<number>(0);
@@ -103,12 +109,14 @@ export function TransactionHistory() {
           <CardTitle>Transactions</CardTitle>
           <CardDescription>Recent transactions from your wallet.</CardDescription>
         </div>
-        <Button asChild size="sm" className="ml-auto gap-1">
-          <a href="#">
-            View All
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-        </Button>
+        {!hideViewAll && (
+          <Button asChild size="sm" className="ml-auto gap-1">
+            <Link href={viewAllHref}>
+              View All
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        )}
       </CardHeader>
       <CardContent>
         <Table>

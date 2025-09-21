@@ -26,7 +26,7 @@ export default function LendPage() {
         </Card>
       </div>
       <div className="mt-8">
-        <LoanOffers />
+        <LoanOffers hideViewAll />
       </div>
     </DashboardLayout>
   );

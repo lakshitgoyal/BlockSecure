@@ -41,12 +41,12 @@ export default function DashboardPage() {
       </div>
       <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
         <div className="grid auto-rows-max items-start gap-4 md:gap-8 xl:col-span-2">
-          <TransactionHistory />
-          <LoansCard />
+          <TransactionHistory viewAllHref="/dashboard/transactions" />
+          <LoansCard viewAllHref="/dashboard/borrow" />
         </div>
         <div className="grid auto-rows-max items-start gap-4 md:gap-8">
           <CreateLoanOffer />
-          <LoanOffers />
+          <LoanOffers viewAllHref="/dashboard/lend" />
         </div>
       </div>
     </DashboardLayout>

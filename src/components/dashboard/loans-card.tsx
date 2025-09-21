@@ -4,6 +4,7 @@ import { myLoans, myBorrowings, Loan } from '@/lib/data';
 import { Progress } from '../ui/progress';
 import { Button } from '../ui/button';
 import { ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 const LoanList = ({ loans }: { loans: Loan[] }) => (
   <div className="space-y-4">
@@ -19,7 +20,12 @@ const LoanList = ({ loans }: { loans: Loan[] }) => (
   </div>
 );
 
-export function LoansCard() {
+interface LoansCardProps {
+  hideViewAll?: boolean;
+  viewAllHref?: string;
+}
+
+export function LoansCard({ hideViewAll = false, viewAllHref = '#' }: LoansCardProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -27,12 +33,14 @@ export function LoansCard() {
           <CardTitle>My Portfolio</CardTitle>
           <CardDescription>Your active loans and borrowings.</CardDescription>
         </div>
-        <Button asChild size="sm" className="ml-auto gap-1">
-            <a href="#">
+        {!hideViewAll && (
+          <Button asChild size="sm" className="ml-auto gap-1">
+            <Link href={viewAllHref}>
                 View All
                 <ArrowUpRight className="h-4 w-4" />
-            </a>
-        </Button>
+            </Link>
+          </Button>
+        )}
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="loans">
