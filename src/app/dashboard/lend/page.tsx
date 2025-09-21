@@ -1,10 +1,10 @@
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
+
 import { LoanOffers } from '@/components/dashboard/loan-offers';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
 export default function LendPage() {
   return (
-    <DashboardLayout>
+    <>
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <Card>
           <CardHeader className="pb-2">
@@ -28,6 +28,6 @@ export default function LendPage() {
       <div className="mt-8">
           <LoanOffers hideViewAll />
       </div>
-    </DashboardLayout>
+    </>
   );
 }

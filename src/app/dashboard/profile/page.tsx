@@ -1,18 +1,15 @@
 
 'use client';
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
 import { TrustScoreCard } from '@/components/dashboard/trust-score-card';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useUpi } from '@/context/upi-provider';
-import { Separator } from '@/components/ui/separator';
 import { IndianRupee } from 'lucide-react';
 
 export default function ProfilePage() {
   const { upiId, isConnected, openDialog, disconnectUpi } = useUpi();
   
   return (
-    <DashboardLayout>
         <div className="grid gap-8 md:grid-cols-3">
             <div className="md:col-span-1">
                 <TrustScoreCard />
@@ -56,6 +53,5 @@ export default function ProfilePage() {
                 </Card>
             </div>
         </div>
-    </DashboardLayout>
   );
 }

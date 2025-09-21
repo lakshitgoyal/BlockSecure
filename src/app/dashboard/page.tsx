@@ -1,4 +1,4 @@
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
+
 import { TrustScoreCard } from '@/components/dashboard/trust-score-card';
 import { LoansCard } from '@/components/dashboard/loans-card';
 import { TransactionHistory } from '@/components/dashboard/transaction-history';
@@ -8,7 +8,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 
 export default function DashboardPage() {
   return (
-    <DashboardLayout>
+    <>
     <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
         <TrustScoreCard />
         <Card>
@@ -49,6 +49,6 @@ export default function DashboardPage() {
         <LoanOffers viewAllHref="/dashboard/lend" />
         </div>
     </div>
-    </DashboardLayout>
+    </>
   );
 }
