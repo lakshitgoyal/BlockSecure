@@ -4,7 +4,6 @@ import { TrustScoreCard } from '@/components/dashboard/trust-score-card';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useUpi } from '@/context/upi-provider';
-import { IndianRupee } from 'lucide-react';
 
 export default function ProfilePage() {
   const { upiId, isConnected, openDialog, disconnectUpi } = useUpi();
@@ -26,7 +25,7 @@ export default function ProfilePage() {
                             <div className="flex items-center justify-between mt-2 text-sm text-muted-foreground p-3 bg-muted rounded-md">
                                 {isConnected ? (
                                     <div className='flex items-center gap-2'>
-                                        <IndianRupee className="h-5 w-5 text-primary" />
+                                        <span className="font-bold text-primary text-lg">₹</span>
                                         <span>{upiId}</span>
                                     </div>
                                 ) : (
