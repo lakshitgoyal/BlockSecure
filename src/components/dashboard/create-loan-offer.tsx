@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -16,7 +17,7 @@ import { useUpi } from '@/context/upi-provider';
 import { useToast } from '@/hooks/use-toast';
 
 export function CreateLoanOffer() {
-  const [amount, setAmount] = useState(500);
+  const [amount, setAmount] = useState(10000);
   const [period, setPeriod] = useState(30);
   const { isConnected, openDialog } = useUpi();
   const { toast } = useToast();
@@ -27,7 +28,7 @@ export function CreateLoanOffer() {
     } else {
       toast({
         title: 'Request Submitted',
-        description: `Your loan request for $${amount} has been submitted.`,
+        description: `Your loan request for ₹${amount.toLocaleString('en-IN')} has been submitted.`,
       });
     }
   };
@@ -44,14 +45,14 @@ export function CreateLoanOffer() {
         <form className="space-y-6">
           <div className="grid gap-2">
             <div className="flex justify-between items-baseline">
-                <Label htmlFor="amount">Amount (USD)</Label>
-                <span className="text-lg font-semibold">${amount}</span>
+                <Label htmlFor="amount">Amount (INR)</Label>
+                <span className="text-lg font-semibold">₹{amount.toLocaleString('en-IN')}</span>
             </div>
             <Slider
               id="amount"
-              min={10}
-              max={2000}
-              step={10}
+              min={1000}
+              max={100000}
+              step={1000}
               value={[amount]}
               onValueChange={value => setAmount(value[0])}
             />

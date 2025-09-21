@@ -11,8 +11,8 @@ const LoanList = ({ loans }: { loans: Loan[] }) => (
     {loans.map(loan => (
       <div key={loan.id}>
         <div className="flex justify-between items-center mb-1">
-          <span className="font-medium text-sm">${loan.principal.toLocaleString()} at {loan.interestRate}%</span>
-          <span className="text-sm text-muted-foreground">Paid ${loan.paid.toLocaleString()}</span>
+          <span className="font-medium text-sm">₹{loan.principal.toLocaleString('en-IN')} at {loan.interestRate}%</span>
+          <span className="text-sm text-muted-foreground">Paid ₹{loan.paid.toLocaleString('en-IN')}</span>
         </div>
         <Progress value={(loan.paid / (loan.principal * (1 + loan.interestRate / 100))) * 100} />
       </div>

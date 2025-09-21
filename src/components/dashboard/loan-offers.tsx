@@ -1,3 +1,4 @@
+
 'use client';
 import {
   Card,
@@ -28,7 +29,7 @@ export function LoanOffers({ hideViewAll = false, viewAllHref = '#' }: LoanOffer
         } else {
             toast({
                 title: 'Loan Funded',
-                description: `You have successfully lent $${offer.amount}.`,
+                description: `You have successfully lent ₹${offer.amount.toLocaleString('en-IN')}.`,
             });
         }
     };
@@ -58,7 +59,7 @@ export function LoanOffers({ hideViewAll = false, viewAllHref = '#' }: LoanOffer
             >
               <div>
                 <p className="font-semibold">
-                  ${offer.amount} at {offer.interestRate}%
+                  ₹{offer.amount.toLocaleString('en-IN')} at {offer.interestRate}%
                 </p>
                 <p className="text-sm text-muted-foreground">
                   {offer.repaymentPeriod} days | Trust Score: {offer.borrowerTrustScore}

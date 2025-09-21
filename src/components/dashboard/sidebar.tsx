@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -19,6 +20,7 @@ import {
   Settings,
   LifeBuoy,
   Percent,
+  User,
 } from 'lucide-react';
 
 export function DashboardSidebar() {
@@ -68,10 +70,10 @@ export function DashboardSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href="#">
-                <LifeBuoy />
-                Support
+            <SidebarMenuButton asChild isActive={pathname === '/dashboard/profile'}>
+              <Link href="/dashboard/profile">
+                <User />
+                Profile
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

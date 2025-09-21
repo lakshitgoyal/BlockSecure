@@ -1,3 +1,4 @@
+
 export type Transaction = {
   id: string;
   amount: number;
@@ -7,12 +8,12 @@ export type Transaction = {
 };
 
 export const transactions: Transaction[] = [
-  { id: 'TXN789012', amount: 250, type: 'loan', status: 'Completed', date: '2023-05-20' },
-  { id: 'TXN456789', amount: 150.75, type: 'repayment', status: 'Completed', date: '2023-05-18' },
-  { id: 'TXN123456', amount: 500, type: 'deposit', status: 'Completed', date: '2023-05-15' },
-  { id: 'TXN098765', amount: 75.20, type: 'withdrawal', status: 'Pending', date: '2023-05-21' },
-  { id: 'TXN543210', amount: 1200, type: 'loan', status: 'Flagged', date: '2023-05-19' },
-  { id: 'TXN654321', amount: 300, type: 'repayment', status: 'Completed', date: '2023-05-17' },
+  { id: 'TXN789012', amount: 20000, type: 'loan', status: 'Completed', date: '2023-05-20' },
+  { id: 'TXN456789', amount: 10000, type: 'repayment', status: 'Completed', date: '2023-05-18' },
+  { id: 'TXN123456', amount: 50000, type: 'deposit', status: 'Completed', date: '2023-05-15' },
+  { id: 'TXN098765', amount: 5000, type: 'withdrawal', status: 'Pending', date: '2023-05-21' },
+  { id: 'TXN543210', amount: 100000, type: 'loan', status: 'Flagged', date: '2023-05-19' },
+  { id: 'TXN654321', amount: 25000, type: 'repayment', status: 'Completed', date: '2023-05-17' },
 ];
 
 export type Loan = {
@@ -25,14 +26,14 @@ export type Loan = {
 };
 
 export const myLoans: Loan[] = [
-  { id: 'LOAN001', principal: 500, interestRate: 5, repaymentPeriod: 30, paid: 250, status: 'Active' },
-  { id: 'LOAN002', principal: 1000, interestRate: 7, repaymentPeriod: 60, paid: 1070, status: 'Paid Off' },
-  { id: 'LOAN003', principal: 200, interestRate: 10, repaymentPeriod: 14, paid: 50, status: 'Active' },
+  { id: 'LOAN001', principal: 50000, interestRate: 12, repaymentPeriod: 30, paid: 25000, status: 'Active' },
+  { id: 'LOAN002', principal: 100000, interestRate: 10, repaymentPeriod: 60, paid: 110000, status: 'Paid Off' },
+  { id: 'LOAN003', principal: 20000, interestRate: 15, repaymentPeriod: 14, paid: 5000, status: 'Active' },
 ];
 
 export const myBorrowings: Loan[] = [
-    { id: 'BORROW001', principal: 300, interestRate: 6, repaymentPeriod: 45, paid: 100, status: 'Active' },
-    { id: 'BORROW002', principal: 1500, interestRate: 8, repaymentPeriod: 90, paid: 400, status: 'Active' },
+    { id: 'BORROW001', principal: 30000, interestRate: 14, repaymentPeriod: 45, paid: 10000, status: 'Active' },
+    { id'BORROW002', principal: 150000, interestRate: 11, repaymentPeriod: 90, paid: 40000, status: 'Active' },
 ];
 
 export type LoanOffer = {
@@ -44,7 +45,7 @@ export type LoanOffer = {
 };
 
 export const loanOffers: LoanOffer[] = [
-  { id: 'OFFER001', amount: 100, interestRate: 8, repaymentPeriod: 30, borrowerTrustScore: 75 },
-  { id: 'OFFER002', amount: 500, interestRate: 6.5, repaymentPeriod: 60, borrowerTrustScore: 88 },
-  { id: 'OFFER003', amount: 250, interestRate: 9, repaymentPeriod: 45, borrowerTrustScore: 62 },
+  { id: 'OFFER001', amount: 10000, interestRate: 15, repaymentPeriod: 30, borrowerTrustScore: 75 },
+  { id: 'OFFER002', amount: 50000, interestRate: 12.5, repaymentPeriod: 60, borrowerTrustScore: 88 },
+  { id: 'OFFER003', amount: 25000, interestRate: 18, repaymentPeriod: 45, borrowerTrustScore: 62 },
 ];

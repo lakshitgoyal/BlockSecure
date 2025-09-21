@@ -1,3 +1,4 @@
+
 'use client';
 import {
   Card,
@@ -21,8 +22,9 @@ import { useToast } from '@/hooks/use-toast';
 import { assessTransactionRisk, TransactionRiskAssessmentInput } from '@/ai/flows/transaction-risk-assessment';
 import { generateTrustScore, TrustScoreInput } from '@/ai/flows/trust-score-generation';
 import { useState, useEffect } from 'react';
-import { AlertTriangle, ArrowUpRight, LoaderCircle } from 'lucide-react';
+import { AlertTriangle, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+import { InrLoader } from '../icons/inr-loader';
 
 interface TransactionHistoryProps {
   hideViewAll?: boolean;
@@ -137,11 +139,11 @@ export function TransactionHistory({ hideViewAll = false, viewAllHref = '#' }: T
                 <TableCell>
                   <Badge variant={getStatusVariant(tx.status)}>{tx.status}</Badge>
                 </TableCell>
-                <TableCell className="text-right">${tx.amount.toFixed(2)}</TableCell>
+                <TableCell className="text-right">₹{tx.amount.toLocaleString('en-IN')}</TableCell>
                 <TableCell className="text-right">
                   <Button variant="outline" size="sm" onClick={() => handleAssessRisk(tx)} disabled={assessing === tx.id}>
                     {assessing === tx.id ? (
-                      <LoaderCircle className="h-4 w-4 animate-spin" />
+                      <InrLoader className="h-4 w-4" />
                     ) : (
                       'Assess Risk'
                     )}

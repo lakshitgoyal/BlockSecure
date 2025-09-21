@@ -1,3 +1,4 @@
+
 'use client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { ChartContainer } from '@/components/ui/chart';
@@ -5,7 +6,7 @@ import { RadialBar, RadialBarChart } from 'recharts';
 import { Button } from '../ui/button';
 import { generateTrustScore, TrustScoreInput } from '@/ai/flows/trust-score-generation';
 import { useEffect, useState } from 'react';
-import { Skeleton } from '../ui/skeleton';
+import { InrLoader } from '../icons/inr-loader';
 
 type ScoreCategory = 'Excellent' | 'Good' | 'Fair' | 'Poor' | 'Very Poor';
 
@@ -21,25 +22,26 @@ export function TrustScoreCard() {
   const [score, setScore] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchScore = async () => {
+    try {
+      setLoading(true);
+      const input: TrustScoreInput = {
+        transactionHistory: 'Completed 5 loans, 2 borrowings. All on time.',
+        walletAge: 365,
+        interactionWithFraudulentAddresses: false,
+        onChainBehavior: 'Regular token swaps, provides liquidity.',
+      };
+      const result = await generateTrustScore(input);
+      setScore(result.trustScore);
+    } catch (error) {
+      console.error('Error fetching trust score:', error);
+      setScore(0); // Set a default/error score
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchScore = async () => {
-      try {
-        setLoading(true);
-        const input: TrustScoreInput = {
-          transactionHistory: 'Completed 5 loans, 2 borrowings. All on time.',
-          walletAge: 365,
-          interactionWithFraudulentAddresses: false,
-          onChainBehavior: 'Regular token swaps, provides liquidity.',
-        };
-        const result = await generateTrustScore(input);
-        setScore(result.trustScore);
-      } catch (error) {
-        console.error('Error fetching trust score:', error);
-        setScore(0); // Set a default/error score
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchScore();
   }, []);
   
@@ -61,9 +63,9 @@ export function TrustScoreCard() {
       </CardHeader>
       <CardContent className="flex-1 flex flex-col items-center justify-center p-6 relative">
         {loading ? (
-            <div className="flex flex-col items-center justify-center h-full max-h-[160px] w-full gap-2">
-                <Skeleton className="h-[160px] w-[160px] rounded-full" />
-                <Skeleton className="h-4 w-24" />
+            <div className="flex flex-col items-center justify-center h-full min-h-[160px] w-full gap-4">
+                <InrLoader className="w-16 h-16" />
+                <p className="text-sm text-muted-foreground">Calculating Score...</p>
             </div>
         ) : (
           <>
@@ -87,7 +89,10 @@ export function TrustScoreCard() {
         )}
       </CardContent>
       <CardFooter>
-        <Button className="w-full" variant="outline">View Details</Button>
+        <Button className="w-full" variant="outline" onClick={fetchScore} disabled={loading}>
+            {loading ? <InrLoader className="mr-2 h-4 w-4" /> : null}
+            Refresh Score
+        </Button>
       </CardFooter>
     </Card>
   );
