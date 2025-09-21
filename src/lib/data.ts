@@ -33,7 +33,7 @@ export const myLoans: Loan[] = [
 
 export const myBorrowings: Loan[] = [
     { id: 'BORROW001', principal: 30000, interestRate: 14, repaymentPeriod: 45, paid: 10000, status: 'Active' },
-    { id'BORROW002', principal: 150000, interestRate: 11, repaymentPeriod: 90, paid: 40000, status: 'Active' },
+    { id: 'BORROW002', principal: 150000, interestRate: 11, repaymentPeriod: 90, paid: 40000, status: 'Active' },
 ];
 
 export type LoanOffer = {
