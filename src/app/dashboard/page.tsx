@@ -20,7 +20,7 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
             <div className="text-xs text-muted-foreground">+15% from last month</div>
-        </Content>
+        </CardContent>
         </Card>
         <Card>
         <CardHeader className="pb-2">
@@ -29,7 +29,7 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
             <div className="text-xs text-muted-foreground">+10% from last month</div>
-        </Content>
+        </CardContent>
         </Card>
         <Card>
         <CardHeader className="pb-2">
