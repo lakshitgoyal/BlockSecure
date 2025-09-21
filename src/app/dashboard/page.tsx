@@ -5,11 +5,13 @@ import { TransactionHistory } from '@/components/dashboard/transaction-history';
 import { CreateLoanOffer } from '@/components/dashboard/create-loan-offer';
 import { LoanOffers } from '@/components/dashboard/loan-offers';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { UpiConnectCard } from '@/components/dashboard/upi-connect-card';
 
 export default function DashboardPage() {
   return (
     <>
     <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+        <UpiConnectCard />
         <TrustScoreCard />
         <Card>
         <CardHeader className="pb-2">
@@ -18,7 +20,7 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
             <div className="text-xs text-muted-foreground">+15% from last month</div>
-        </CardContent>
+        </Content>
         </Card>
         <Card>
         <CardHeader className="pb-2">
@@ -27,7 +29,7 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
             <div className="text-xs text-muted-foreground">+10% from last month</div>
-        </CardContent>
+        </Content>
         </Card>
         <Card>
         <CardHeader className="pb-2">
