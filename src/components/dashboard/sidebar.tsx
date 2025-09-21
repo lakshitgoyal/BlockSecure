@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   Sidebar,
   SidebarHeader,
@@ -19,6 +22,8 @@ import {
 } from 'lucide-react';
 
 export function DashboardSidebar() {
+  const pathname = usePathname();
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -27,32 +32,32 @@ export function DashboardSidebar() {
       <SidebarContent>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive>
-              <Link href="#">
+            <SidebarMenuButton asChild isActive={pathname === '/dashboard'}>
+              <Link href="/dashboard">
                 <LayoutDashboard />
                 Dashboard
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href="#">
+            <SidebarMenuButton asChild isActive={pathname === '/dashboard/lend'}>
+              <Link href="/dashboard/lend">
                 <Percent />
                 Lend
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href="#">
+            <SidebarMenuButton asChild isActive={pathname === '/dashboard/borrow'}>
+              <Link href="/dashboard/borrow">
                 <HandCoins />
                 Borrow
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href="#">
+            <SidebarMenuButton asChild isActive={pathname === '/dashboard/transactions'}>
+              <Link href="/dashboard/transactions">
                 <ArrowRightLeft />
                 Transactions
               </Link>
