@@ -3,7 +3,7 @@
 <div align="center">
   <img src="https://picsum.photos/seed/finance-hero/800/400" alt="BlockSecure Hero Image" data-ai-hint="finance technology abstract" style="border-radius: 12px;"/>
 </div>
-
+ 
 <br/>
 
 **BlockSecure** is a modern, AI-driven micro-finance application that facilitates secure and efficient peer-to-peer lending. By leveraging UPI for payments and cutting-edge AI for risk management, BlockSecure provides a trustworthy ecosystem for both lenders and borrowers.
