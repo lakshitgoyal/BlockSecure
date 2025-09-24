@@ -87,8 +87,8 @@ export function DashboardSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href="#">
+            <SidebarMenuButton asChild isActive={pathname === '/dashboard/profile'}>
+              <Link href="/dashboard/profile">
                 <Settings />
                 Settings
               </Link>
