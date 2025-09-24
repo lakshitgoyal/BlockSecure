@@ -64,46 +64,40 @@ export const conversationFlow = ai.defineFlow(
       - Your responses should be formatted for a chat interface.`,
     });
 
-    const choice = response.candidates[0];
-    if (!choice) {
-      return undefined;
-    }
-
     // Handle potential tool calls
-    if (choice.finishReason === 'toolCode' && choice.message.content) {
-        const toolRequestPart = choice.message.content.find(part => 'toolRequest' in part);
-        if(toolRequestPart && 'toolRequest' in toolRequestPart) {
-            console.log('Tool call requested:', toolRequestPart.toolRequest);
-            
-            const toolResponse = await ai.runTool(toolRequestPart.toolRequest);
+    const toolRequest = response.toolRequest();
+    if (toolRequest) {
+      console.log('Tool call requested:', toolRequest);
+      
+      const toolResponse = await ai.runTool(toolRequest);
 
-            // Re-run the generation with the tool's output
-            const secondResult = await ai.generate({
-                model: 'googleai/gemini-2.5-flash',
-                history: [
-                    ...history,
-                    { role: 'user', content: [{ text: lastMessage.content.map(p => p.text).join(' ') }] },
-                    { role: 'model', content: [toolRequestPart] },
-                ],
-                prompt: { role: 'tool', content: [{ toolResponse }] },
-                tools: [getLoanOfferDetails],
-            });
-
-            const secondChoice = secondResult.candidates[0];
-            if (secondChoice) {
-                return {
-                    role: 'model',
-                    content: [{ text: secondChoice.text }],
-                };
-            }
-        }
+      // Re-run the generation with the tool's output
+      const secondResult = await ai.generate({
+          model: 'googleai/gemini-2.5-flash',
+          history: [
+              ...history,
+              { role: 'user', content: [{ text: lastMessage.content.map(p => p.text).join(' ') }] },
+              response.toHistoryMessage(),
+          ],
+          prompt: { role: 'tool', content: [{ toolResponse }] },
+          tools: [getLoanOfferDetails],
+      });
+      
+      return {
+          role: 'model',
+          content: [{ text: secondResult.text }],
+      };
     }
 
+    // Handle regular text response
+    const textResponse = response.text;
+    if (textResponse) {
+      return {
+        role: 'model',
+        content: [{ text: textResponse }],
+      };
+    }
 
-    const textResponse = choice.text;
-    return {
-      role: 'model',
-      content: [{ text: textResponse }],
-    };
+    return undefined;
   }
 );
