@@ -35,7 +35,7 @@ export default function LandingPage() {
                     AI-Powered Micro-Finance & Fraud Detection
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    BlockSecure leverages cutting-edge AI to provide trust scores, assess transaction risks, and offer a secure peer-to-peer lending platform using UPI.
+                    BlockSecure is the AI-powered platform for secure peer-to-peer lending, simplifying micro-finance with the trust of UPI.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
