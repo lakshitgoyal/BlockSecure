@@ -65,11 +65,10 @@ export const conversationFlow = ai.defineFlow(
     });
 
     // Handle potential tool calls
-    const toolRequest = response.toolRequest();
-    if (toolRequest) {
-      console.log('Tool call requested:', toolRequest);
+    if (response.toolRequest) {
+      console.log('Tool call requested:', response.toolRequest);
       
-      const toolResponse = await ai.runTool(toolRequest);
+      const toolResponse = await ai.runTool(response.toolRequest);
 
       // Re-run the generation with the tool's output
       const secondResult = await ai.generate({
@@ -90,14 +89,14 @@ export const conversationFlow = ai.defineFlow(
     }
 
     // Handle regular text response
-    const textResponse = response.text;
-    if (textResponse) {
+    if (response.text) {
       return {
         role: 'model',
-        content: [{ text: textResponse }],
+        content: [{ text: response.text }],
       };
     }
 
     return undefined;
   }
 );
+
