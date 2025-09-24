@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { loanOffers, LoanOffer } from '@/lib/data';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Clipboard } from 'lucide-react';
 import Link from 'next/link';
 import { useUpi } from '@/context/upi-provider';
 import { useToast } from '@/hooks/use-toast';
@@ -34,6 +34,14 @@ export function LoanOffers({ hideViewAll = false, viewAllHref = '#' }: LoanOffer
         }
     };
 
+    const handleCopyId = (id: string) => {
+        navigator.clipboard.writeText(id);
+        toast({
+            title: 'Copied to Clipboard',
+            description: `Loan offer ID ${id} has been copied.`,
+        });
+    }
+
   return (
     <Card>
       <CardHeader className='flex flex-row items-start justify-between'>
@@ -57,12 +65,18 @@ export function LoanOffers({ hideViewAll = false, viewAllHref = '#' }: LoanOffer
               key={offer.id}
               className="flex items-center justify-between rounded-lg border bg-card p-3"
             >
-              <div>
-                <p className="font-semibold">
-                  ₹{offer.amount.toLocaleString('en-IN')} at {offer.interestRate}%
-                </p>
+              <div className="grid gap-1">
+                 <div className="flex items-center gap-2">
+                    <p className="font-semibold">
+                    ₹{offer.amount.toLocaleString('en-IN')} at {offer.interestRate}%
+                    </p>
+                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyId(offer.id)}>
+                        <Clipboard className="h-4 w-4" />
+                        <span className="sr-only">Copy ID</span>
+                    </Button>
+                </div>
                 <p className="text-sm text-muted-foreground">
-                  {offer.repaymentPeriod} days | Trust Score: {offer.borrowerTrustScore}
+                  {offer.id} &bull; {offer.repaymentPeriod} days | Trust Score: {offer.borrowerTrustScore}
                 </p>
               </div>
               <Button size="sm" onClick={() => handleLend(offer)}>Lend</Button>
