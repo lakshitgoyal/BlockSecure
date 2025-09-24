@@ -1,3 +1,4 @@
+'use client';
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -5,8 +6,11 @@ import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useTheme } from 'next-themes';
 
 export default function SettingsPage() {
+  const { setTheme, theme } = useTheme();
+
   return (
     <div className="grid gap-8">
         <Card>
@@ -40,7 +44,11 @@ export default function SettingsPage() {
                  <div className="space-y-4">
                     <h3 className="text-lg font-medium">Theme</h3>
                     <Separator />
-                    <RadioGroup defaultValue="dark" className="p-4 space-y-2 rounded-lg border">
+                    <RadioGroup 
+                      value={theme}
+                      onValueChange={setTheme}
+                      className="p-4 space-y-2 rounded-lg border"
+                    >
                         <Label>Appearance</Label>
                         <p className="text-sm text-muted-foreground pb-2">
                             Select the theme for the dashboard.
