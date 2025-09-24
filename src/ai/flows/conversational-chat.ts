@@ -71,16 +71,31 @@ export const conversationFlow = ai.defineFlow(
     }
     
     // Handle potential tool calls
-    if (choice.finishReason === 'toolCode') {
-        const toolRequest = choice.output?.content.find(part => 'toolRequest' in part)?.toolRequest;
-        if(toolRequest) {
-            console.log('Tool call requested:', toolRequest);
-            const toolResponse = await ai.runTool(toolRequest);
-            console.log('Tool response:', toolResponse);
-            return {
-                role: 'model',
-                content: [{ text: toolResponse }],
-            };
+    if (choice.finishReason === 'toolCode' && choice.output?.content) {
+        const toolRequestPart = choice.output.content.find(part => 'toolRequest' in part);
+        if(toolRequestPart && 'toolRequest' in toolRequestPart) {
+            console.log('Tool call requested:', toolRequestPart.toolRequest);
+            
+            const toolResponse = await ai.runTool(toolRequestPart.toolRequest);
+
+            // Re-run the generation with the tool's output
+            const secondResult = await llm.generate({
+                history: [
+                    ...history,
+                    { role: 'user', parts: [{ text: lastMessage.content.map(p => p.text).join(' ') }] },
+                    { role: 'model', parts: [toolRequestPart] },
+                ],
+                prompt: { role: 'tool', parts: [{ toolResponse }] },
+                tools: [getLoanOfferDetails],
+            });
+
+            const secondChoice = secondResult.choices[0];
+            if (secondChoice) {
+                return {
+                    role: 'model',
+                    content: [{ text: secondChoice.text }],
+                };
+            }
         }
     }
 
@@ -92,3 +107,4 @@ export const conversationFlow = ai.defineFlow(
     };
   }
 );
+
