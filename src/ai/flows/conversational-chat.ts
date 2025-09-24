@@ -4,7 +4,6 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { loanOffers } from '@/lib/data';
-import { generate } from 'genkit/generate';
 
 const MessageSchema = z.object({
   role: z.enum(['user', 'model']),
@@ -48,7 +47,7 @@ export const conversationFlow = ai.defineFlow(
     }));
     const lastMessage = messages[messages.length - 1];
 
-    const response = await generate({
+    const response = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
       history,
       prompt: lastMessage.content.map((part) => part.text).join(' '),
@@ -79,7 +78,7 @@ export const conversationFlow = ai.defineFlow(
             const toolResponse = await ai.runTool(toolRequestPart.toolRequest);
 
             // Re-run the generation with the tool's output
-            const secondResult = await generate({
+            const secondResult = await ai.generate({
                 model: 'googleai/gemini-2.5-flash',
                 history: [
                     ...history,
@@ -94,14 +93,14 @@ export const conversationFlow = ai.defineFlow(
             if (secondChoice) {
                 return {
                     role: 'model',
-                    content: [{ text: secondChoice.text() }],
+                    content: [{ text: secondChoice.text }],
                 };
             }
         }
     }
 
 
-    const textResponse = choice.text();
+    const textResponse = choice.text;
     return {
       role: 'model',
       content: [{ text: textResponse }],
