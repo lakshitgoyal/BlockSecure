@@ -1,12 +1,12 @@
-# YellowEye: AI-Powered Micro-Finance Platform
+# BlockSecure: AI-Powered Micro-Finance Platform
 
 <div align="center">
-  <img src="https://picsum.photos/seed/finance-hero/800/400" alt="YellowEye Hero Image" data-ai-hint="finance technology abstract" style="border-radius: 12px;"/>
+  <img src="https://picsum.photos/seed/finance-hero/800/400" alt="BlockSecure Hero Image" data-ai-hint="finance technology abstract" style="border-radius: 12px;"/>
 </div>
 
 <br/>
 
-**YellowEye** is a modern, AI-driven micro-finance application that facilitates secure and efficient peer-to-peer lending. By leveraging UPI for payments and cutting-edge AI for risk management, YellowEye provides a trustworthy ecosystem for both lenders and borrowers.
+**BlockSecure** is a modern, AI-driven micro-finance application that facilitates secure and efficient peer-to-peer lending. By leveraging UPI for payments and cutting-edge AI for risk management, BlockSecure provides a trustworthy ecosystem for both lenders and borrowers.
 
 ---
 
@@ -57,8 +57,8 @@ GEMINI_API_KEY=...
 
 1.  **Clone the repository** (if you've pushed it to GitHub):
     ```sh
-    git clone https://github.com/your-username/yelloweye-app.git
-    cd yelloweye-app
+    git clone https://github.com/your-username/blocksecure-app.git
+    cd blocksecure-app
     ```
 
 2.  **Install NPM packages**:

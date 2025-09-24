@@ -5,7 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 
 export const metadata: Metadata = {
-  title: 'YellowEye',
+  title: 'BlockSecure',
   description: 'AI-Powered DeFi Micro-Finance & Fraud Detection',
 };
 

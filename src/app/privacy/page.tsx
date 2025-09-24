@@ -9,7 +9,7 @@ export default function PrivacyPage() {
       <header className="px-4 lg:px-6 h-14 flex items-center">
         <Link href="/" className="flex items-center justify-center" prefetch={false}>
           <Logo />
-          <span className="sr-only">YellowEye</span>
+          <span className="sr-only">BlockSecure</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Button asChild variant="outline">
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
               <div className="space-y-4">
                 <h2 className="text-2xl font-bold">1. Introduction</h2>
                 <p className="text-muted-foreground">
-                  Welcome to YellowEye. We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us.
+                  Welcome to BlockSecure. We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us.
                 </p>
 
                 <h2 className="text-2xl font-bold">2. Information We Collect</h2>
@@ -52,7 +52,7 @@ export default function PrivacyPage() {
         </section>
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-muted-foreground">&copy; {new Date().getFullYear()} YellowEye. All rights reserved.</p>
+        <p className="text-xs text-muted-foreground">&copy; {new Date().getFullYear()} BlockSecure. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link href="/terms" className="text-xs hover:underline underline-offset-4" prefetch={false}>
             Terms of Service
