@@ -4,6 +4,7 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { loanOffers } from '@/lib/data';
+import { generate } from 'genkit/generate';
 
 const MessageSchema = z.object({
   role: z.enum(['user', 'model']),
@@ -43,15 +44,14 @@ export const conversationFlow = ai.defineFlow(
   async (messages) => {
     const history = messages.slice(0, -1).map((msg) => ({
       role: msg.role,
-      parts: msg.content.map((part) => ({ text: part.text })),
+      content: msg.content,
     }));
     const lastMessage = messages[messages.length - 1];
 
-    const llm = ai.getGenerator('googleai/gemini-2.5-flash');
-
-    const result = await llm.generate({
+    const response = await generate({
+      model: 'googleai/gemini-2.5-flash',
       history,
-      prompt: lastMessage.content.map((part) => ({ text: part.text })).join(' '),
+      prompt: lastMessage.content.map((part) => part.text).join(' '),
       tools: [getLoanOfferDetails],
       config: {
         // Lower temperature for more factual, less creative responses
@@ -65,46 +65,46 @@ export const conversationFlow = ai.defineFlow(
       - Your responses should be formatted for a chat interface.`,
     });
 
-    const choice = result.choices[0];
+    const choice = response.candidates[0];
     if (!choice) {
       return undefined;
     }
-    
+
     // Handle potential tool calls
-    if (choice.finishReason === 'toolCode' && choice.output?.content) {
-        const toolRequestPart = choice.output.content.find(part => 'toolRequest' in part);
+    if (choice.finishReason === 'toolCode' && choice.message.content) {
+        const toolRequestPart = choice.message.content.find(part => 'toolRequest' in part);
         if(toolRequestPart && 'toolRequest' in toolRequestPart) {
             console.log('Tool call requested:', toolRequestPart.toolRequest);
             
             const toolResponse = await ai.runTool(toolRequestPart.toolRequest);
 
             // Re-run the generation with the tool's output
-            const secondResult = await llm.generate({
+            const secondResult = await generate({
+                model: 'googleai/gemini-2.5-flash',
                 history: [
                     ...history,
-                    { role: 'user', parts: [{ text: lastMessage.content.map(p => p.text).join(' ') }] },
-                    { role: 'model', parts: [toolRequestPart] },
+                    { role: 'user', content: [{ text: lastMessage.content.map(p => p.text).join(' ') }] },
+                    { role: 'model', content: [toolRequestPart] },
                 ],
-                prompt: { role: 'tool', parts: [{ toolResponse }] },
+                prompt: { role: 'tool', content: [{ toolResponse }] },
                 tools: [getLoanOfferDetails],
             });
 
-            const secondChoice = secondResult.choices[0];
+            const secondChoice = secondResult.candidates[0];
             if (secondChoice) {
                 return {
                     role: 'model',
-                    content: [{ text: secondChoice.text }],
+                    content: [{ text: secondChoice.text() }],
                 };
             }
         }
     }
 
 
-    const textResponse = choice.text;
+    const textResponse = choice.text();
     return {
       role: 'model',
       content: [{ text: textResponse }],
     };
   }
 );
-
