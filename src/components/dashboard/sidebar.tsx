@@ -21,6 +21,7 @@ import {
   LifeBuoy,
   Percent,
   User,
+  Bot,
 } from 'lucide-react';
 
 export function DashboardSidebar() {
@@ -62,6 +63,14 @@ export function DashboardSidebar() {
               <Link href="/dashboard/transactions">
                 <ArrowRightLeft />
                 Transactions
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild isActive={pathname === '/dashboard/assistant'}>
+              <Link href="/dashboard/assistant">
+                <Bot />
+                AI Assistant
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
