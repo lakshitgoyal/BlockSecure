@@ -34,7 +34,7 @@ export default function LandingPage() {
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                     AI-Powered Micro-Finance & Fraud Detection
                   </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                  <p className="max-w-[1200px] text-muted-foreground md:text-xl">
                     BlockSecure is the AI-powered platform for secure peer-to-peer lending, simplifying micro-finance with the trust of UPI.
                   </p>
                 </div>
