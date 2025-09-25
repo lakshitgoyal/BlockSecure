@@ -7,7 +7,7 @@
 <br/>
 
 **BlockSecure** is a modern, AI-driven micro-finance application that facilitates secure and efficient peer-to-peer lending. By leveraging UPI for payments and cutting-edge AI for risk management, BlockSecure provides a trustworthy ecosystem for both lenders and borrowers.
-
+Website Link: https://blocksecure.onrender.com/
 ---
 
 ## ✨ Core Features
@@ -27,7 +27,7 @@
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) & [ShadCN UI](https://ui.shadcn.com/)
 - **Authentication**: [Clerk](https://clerk.com/)
 - **Generative AI**: [Google's Gemini on Genkit](https://firebase.google.com/docs/genkit)
-- **Deployment**: Firebase App Hosting
+- **Deployment**: Render
 
 ---
 
